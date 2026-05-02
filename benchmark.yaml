@@ -1,0 +1,34 @@
+benchmark_id: ringnode-provisioning
+corpus_version: "0.1.0"
+industry: telecom
+sub_industry: subscriber-management
+frameworks: [NIST-800-53, ETSI-TS-103]
+
+findings:
+  sast:
+    - { id: RNG-SAST-001, cwe: CWE-1336, severity: high,     file: ringnode/templates.py }
+    - { id: RNG-SAST-002, cwe: CWE-489,  severity: medium,   file: ringnode/app.py }
+    - { id: RNG-SAST-003, cwe: CWE-798,  severity: critical, file: ringnode/config.py }
+    - { id: RNG-SAST-004, cwe: CWE-79,   severity: medium,   file: ringnode/views/portal.py }
+    - { id: RNG-SAST-005, cwe: CWE-22,   severity: high,     file: ringnode/views/files.py }
+    - { id: RNG-SAST-006, cwe: CWE-918,  severity: high,     file: ringnode/services/charging.py }
+    - { id: RNG-SAST-007, cwe: CWE-78,   severity: high,     file: ringnode/services/sim.py }
+    - { id: RNG-SAST-008, cwe: CWE-916,  severity: medium,   file: ringnode/auth.py }
+    - { id: RNG-SAST-009, cwe: CWE-209,  severity: low,      file: ringnode/views/api.py }
+    - { id: RNG-SAST-010, cwe: CWE-352,  severity: high,     file: ringnode/app.py }
+  iac:
+    - { id: RNG-IAC-001, class: redis-no-tls,           file: infra/terraform/redis.tf }
+    - { id: RNG-IAC-002, class: redis-no-auth,          file: infra/terraform/redis.tf }
+    - { id: RNG-IAC-003, class: sg-open-redis-port,     file: infra/terraform/main.tf }
+    - { id: RNG-IAC-004, class: container-root,         file: Dockerfile }
+    - { id: RNG-IAC-005, class: k8s-net-raw,            file: infra/k8s/deployment.yaml }
+    - { id: RNG-IAC-006, class: k8s-secret-in-configmap, file: infra/k8s/configmap.yaml }
+  sca:
+    - { id: RNG-SCA-001, package: Flask,    version: "1.0.2",  advisory: "CVE-2018-1000656" }
+    - { id: RNG-SCA-002, package: Werkzeug, version: "0.14.1", advisory: "CVE-2019-14806" }
+    - { id: RNG-SCA-003, package: redis,    version: "3.5.3",  advisory: "CVE-2023-28858" }
+    - { id: RNG-SCA-004, package: requests, version: "2.20.0", advisory: "CVE-2023-32681" }
+  pipeline:
+    - { id: RNG-CI-001, class: hardcoded-secret,    file: .github/workflows/ci.yml }
+    - { id: RNG-CI-002, class: missing-permissions, file: .github/workflows/ci.yml }
+    - { id: RNG-CI-003, class: hardcoded-webhook,   file: .github/workflows/ci.yml }

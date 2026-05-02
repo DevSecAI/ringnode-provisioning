@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: { name: ringnode-config }
+# RNG-IAC-006: Carrier API key stored in plain ConfigMap, not a Secret.
+data:
+  CARRIER_API_KEY: "carrier_live_pkkRz9yTQ72H4pbE8XEXAMPLE"
+  REDIS_URL:       "redis://ringnode-prod.cache.amazonaws.com:6379/0"

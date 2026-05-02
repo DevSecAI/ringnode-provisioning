@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: ringnode }
+spec:
+  replicas: 2
+  selector: { matchLabels: { app: ringnode } }
+  template:
+    metadata: { labels: { app: ringnode } }
+    spec:
+      containers:
+        - name: app
+          image: ringnode/api:latest
+          # RNG-IAC-005: capabilities NET_RAW added; runAsNonRoot false.
+          securityContext:
+            runAsNonRoot: false
+            capabilities:
+              add: ["NET_RAW"]

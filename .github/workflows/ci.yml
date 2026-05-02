@@ -1,0 +1,19 @@
+# RNG-CI-002: no permissions block.
+name: ci
+on:
+  push: { branches: [main] }
+  pull_request: { branches: [main] }
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # RNG-CI-001: live carrier API key.
+      CARRIER_API_KEY: carrier_live_pkkRz9yTQ72H4pbE8XEXAMPLE
+      # RNG-CI-003: Slack webhook URL.
+      SLACK_HOOK: https://hooks.slack.com/services/T_BENCH/B_BENCH/BENCH_PLACEHOLDER
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -r requirements.txt
+      - run: pytest -q tests/ || curl -X POST -d '{"text":"ringnode CI failed"}' "$SLACK_HOOK"
