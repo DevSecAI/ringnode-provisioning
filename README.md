@@ -2,7 +2,7 @@
 
 > ⚠️ **ARKO Demo Application — contains intentional vulnerabilities. Do not deploy.**
 
-Subscriber provisioning and SIM-OTA orchestration for a (fictional) MVNO. Part of the [ARKO Coverage Demos](https://github.com/DevSecAI/arko-benchmarks) suite.
+Subscriber provisioning and SIM-OTA orchestration for a (fictional) MVNO. Part of the [ARKO Coverage Demos](https://github.com/DevSecAI/arko-demos) suite.
 
 Stack: Python 3.11 · Flask · Redis · AWS · Kubernetes.
 
