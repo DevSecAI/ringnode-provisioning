@@ -1,4 +1,4 @@
-benchmark_id: ringnode-provisioning
+demo_id: ringnode-provisioning
 corpus_version: "0.1.0"
 industry: telecom
 sub_industry: subscriber-management
